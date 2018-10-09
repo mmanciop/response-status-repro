@@ -18,8 +18,18 @@ public class DemoApplicationTests {
 	private WebTestClient webClient;
 
 	@Test
-	public void testGreetings() {
-		webClient.get().uri("api/hello")
+	public void testNope() {
+		webClient.get().uri("nope")
+				.exchange()
+				/*
+				 * If @ResponseStatus worked, this should be a I_AM_A_TEAPOT!
+				 */
+				.expectStatus().isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Test
+	public void testYep() {
+		webClient.get().uri("yep")
 				.exchange()
 				.expectStatus().isEqualTo(HttpStatus.I_AM_A_TEAPOT);
 	}
